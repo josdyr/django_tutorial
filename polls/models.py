@@ -2,6 +2,7 @@ import datetime
 
 from django.db import models
 from django.utils import timezone
+from taggit.managers import TaggableManager
 
 # Create your models here.
 
@@ -43,6 +44,7 @@ class Document(models.Model):
 
 class HowTo(Document):
     intro = models.CharField(max_length=500)
+    tags = TaggableManager()
 
     def __str__(self):
         return '(title:"' + self.title + '"), (' + 'intro:"' + self.intro + '")'
@@ -54,9 +56,10 @@ class Step(models.Model):
     markdown_content = models.CharField(max_length=5000) # chang the length
 
 
-class Tag(models.Model):
-    how_to = models.ForeignKey(HowTo, on_delete=models.CASCADE)
-    tag_name = models.CharField(max_length=18)
+# class Tag(models.Model):
+#     how_to = models.ForeignKey(HowTo, on_delete=models.CASCADE)
+#     tag_name = models.CharField(max_length=18)
 
 
 # class TheoreticalArticle(models.Model):
+#     pass

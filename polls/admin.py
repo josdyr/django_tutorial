@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Choice, Question, HowTo, Step
+from .models import Choice, Question
+from .models import HowTo, Step, Tag
 
 # Register your models here.
 class ChoiceInline(admin.TabularInline):
@@ -24,14 +25,26 @@ class StepInline(admin.TabularInline):
     extra = 3
 
 
+class TagInline(admin.TabularInline):
+    model = Tag
+    extra = 3
+
+
 class HowToAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Title Information', {'fields': ['title'], 'classes': ['intro']}),
-        ('Intro', {'fields': ['intro']}),
+        ('Time of Publishing', {'fields': ['pub_date']}),
+        ('Intro, Slug', {'fields': ['intro', 'slug']}),
     ]
-    inlines = [StepInline]
-    list_display = ('title', 'intro')
+    inlines = [StepInline, TagInline]
+    list_display = ('title', 'pub_date', 'intro')
+    search_fields = ['title']
 
 
-admin.site.register(HowTo, HowToAdmin)
+class TheoreticalArticle(admin.ModelAdmin):
+    pass
+
+
 # admin.site.register(Question, QuestionAdmin)
+admin.site.register(HowTo, HowToAdmin)
+# admin.site.register(TheoreticalArticle, TheoreticalArticleAdmin)

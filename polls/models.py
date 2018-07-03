@@ -5,8 +5,6 @@ from django.utils import timezone
 from taggit.managers import TaggableManager
 
 # Create your models here.
-
-
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
@@ -36,7 +34,6 @@ class Document(models.Model):
     title = models.CharField(max_length=80)
     # author = ?
     pub_date = models.DateTimeField('publish on')
-    slug = models.CharField(max_length=80)
 
     class Meta:
         abstract = True
@@ -54,11 +51,6 @@ class Step(models.Model):
     how_to = models.ForeignKey(HowTo, on_delete=models.CASCADE)
     title = models.CharField(max_length=80)
     markdown_content = models.CharField(max_length=5000) # chang the length
-
-
-# class Tag(models.Model):
-#     how_to = models.ForeignKey(HowTo, on_delete=models.CASCADE)
-#     tag_name = models.CharField(max_length=18)
 
 
 # class TheoreticalArticle(models.Model):

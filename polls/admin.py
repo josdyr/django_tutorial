@@ -35,13 +35,18 @@ class HowToAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Title Information', {'fields': ['title']}),
         ('Time of Publishing', {'fields': ['pub_date']}),
-        ('Intro, Slug', {'fields': ['intro', 'slug']}),
-        (None, {'fields': ['tags']}),
+        ('Introduction', {'fields': ['intro']}),
+        ('Tags', {'fields': ['tags']}),
     ]
     inlines = [StepInline]
-    # inlines = [TagInline]
-    list_display = ('title', 'pub_date', 'intro')
+    list_display = ('title', 'pub_date', 'intro', 'tag_list')
     search_fields = ['title']
+
+    def get_queryset(self, request):
+        return super(HowToAdmin, self).get_queryset(request).prefetch_related('tags')
+
+    def tag_list(self, obj):
+        return u", ".join(o.name for o in obj.tags.all())
 
 
 # class TheoreticalArticle(admin.ModelAdmin):

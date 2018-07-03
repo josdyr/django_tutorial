@@ -5,25 +5,26 @@ from django.views import generic
 from django.utils import timezone
 
 from .models import Choice, Question
+from .models import HowTo, Step
 
 # Create your views here.
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
-    context_object_name = 'latest_question_list'
+    context_object_name = 'howto_list'
 
     def get_queryset(self):
         """Return the last five published questions."""
-        return Question.objects.filter(
-            pub_date__lte=timezone.now()
-            ).order_by('-pub_date')[:5]
+        # return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
+        return HowTo.objects.order_by('-pub_date')[:5]
 
 class DetailView(generic.DetailView):
-    model = Question
+    model = HowTo
     template_name = 'polls/detail.html'
+    context_object_name = 'current_how_to'
 
     def get_queryset(self):
         """Excludes any questions that aren't published yet."""
-        return Question.objects.filter(pub_date__lte=timezone.now())
+        return HowTo.objects.filter(id=13)
 
 class ResultsView(generic.DetailView):
     model = Question

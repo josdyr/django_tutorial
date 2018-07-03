@@ -2,10 +2,10 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
 
-{% if latest_question_list %}
+{% if howto_list %}
     <ul>
-    {% for question in latest_question_list %}
-        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+    {% for how_to in howto_list %}
+        <li><a href="{% url 'polls:detail' how_to.id %}">{{ how_to.title }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
